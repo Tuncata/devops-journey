@@ -14,4 +14,4 @@ echo "== Top 5 URLs =="
 awk '{print $7}' "$LOG" | sort | uniq -c | sort -nr | head -n 5
 
 echo "== IPs with the most 404s =="
- awk '$9 == 404 {print $1}' $LOG | sort | uniq -c | sort -nr | head -n 5
+awk '$9 == 404 {print $1}' "$LOG" | sort | uniq -c | sort -nr | head -n 5
