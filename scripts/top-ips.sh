@@ -8,10 +8,10 @@ echo "== Top 10 IPs =="
 awk '{print $1}' "$LOG" | sort | uniq -c | sort -nr | head -n 10
 
 echo "== Requests per status code =="
-# ...your pipeline here...
+awk '{print $9}' "$LOG" | sort | uniq -c | sort -nr
 
 echo "== Top 5 URLs =="
-# ...your pipeline here...
+awk '{print $7}' "$LOG" | sort | uniq -c | sort -nr | head -n 5
 
 echo "== IPs with the most 404s =="
-# ...your pipeline here...
+ awk '$9 == 404 {print $1}' $LOG | sort | uniq -c | sort -nr | head -n 5
