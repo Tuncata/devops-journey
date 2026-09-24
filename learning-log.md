@@ -5,3 +5,4 @@
 - Connected VS Code to WSL
 - Configured Git and an SSH key for GitHub
 - Learned: pwd, cd, mkdir -p, sudo, apt, the difference between /mnt/c and /home
+Proceeding with lesson 3
