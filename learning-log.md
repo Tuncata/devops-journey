@@ -33,3 +33,22 @@ Proceeding with lesson 3
 - `free -h`: watch `available`, not `free` (cache is good)
 - Ctrl+Z + `bg` to background a running command; `jobs`, `fg`
 - `df -h`, `du -sh`, `ss -tulpn` / `lsof -i :80` to find who holds a port
+
+## 2026-09-28 — Module 01, Lessons 6–7
+### Lesson 6: packages & services
+- `apt update` refreshes the package list; `apt upgrade` installs the updates. Run them together
+- `systemctl start` = now, `enable` = at boot, `enable --now` = both
+- After editing a .service file: `systemctl daemon-reload`, then restart
+- `Restart=always` gives self-healing: I killed heartbeat.service with -9 and systemd brought it back
+- Service won't start? `systemctl status`, then `journalctl -u <svc> -n 50`, then the app's config test (`nginx -t`)
+- Built services/heartbeat.service (runs as `nobody`, least privilege)
+
+### Lesson 7: archives, SSH, cron
+- `tar -czf out.tar.gz dir/` to create, `tar -xzf out.tar.gz` to extract, `tar -tzf` to list (never c + x together)
+- SSH keys over passwords: unguessable, the private key never leaves my machine, works for automation, easy to revoke
+- `ssh-copy-id user@host` for passwordless login; `ssh host "cmd"` runs remote commands
+- `scp` for one-off copies; `rsync -avz` for backups (only sends changes; mind the trailing slash)
+- Cron: `min hour day month weekday`, e.g. `0 3 * * 0` = Sundays 03:00; `*/2` = minutes divisible by 2
+- Cron has a minimal environment: use full paths and log output with `>> file.log 2>&1`
+- Built scripts/backup.sh (timestamped tar.gz, keeps the last 5) and ran it from cron every 2 min
+- Gotcha: closing the editor before saving means `crontab -e` changes are lost
